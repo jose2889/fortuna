@@ -1,0 +1,35 @@
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* body{
+    background-color: rgb(211, 230, 246);
+} */
+
+/* body {
+  background-image: linear-gradient(
+    170deg, 
+    #000000, 
+    #1e1b4b, 
+    #312e81, 
+    #4f46e5
+  );
+  min-height: 100vh;
+
+} */
+
+body {
+  background-color: #0c0a1d; 
+  background-image: linear-gradient(
+    to right, 
+    #131136, 
+    #3730a3, 
+    #a78bfad2, 
+    #241d91, 
+    #131136
+  );
+  min-height: 100vh;
+}

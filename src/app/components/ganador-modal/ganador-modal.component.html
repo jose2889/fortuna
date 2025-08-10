@@ -1,0 +1,21 @@
+<div class="modal-backdrop" (click)="cerrarModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="cerrarModal()">×</button>
+    
+    <canvas #confettiCanvas class="confetti-canvas"></canvas>
+
+    <div class="modal-header">
+      ¡Felicidades!
+    </div>
+    <div class="modal-body">
+      <p>El ganador es:</p>
+      <h1 class="nombre-ganador">
+        {{ nombreGanador }}
+          <!-- 56 -->
+    </h1>
+    </div>
+    <div class="modal-footer">
+      <button class="boton-cerrar" (click)="cerrarModal()">Cerrar</button>
+    </div>
+  </div>
+</div>

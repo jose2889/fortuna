@@ -1,0 +1,91 @@
+<div class="sorteo-container">
+  <div class="ruleta-section" [class.fullscreen]="isFullscreen">
+    <h2 class="text-gray-50 ">¡Gira la Ruleta!</h2>
+
+    <div class="ruleta-wrapper">
+      <div class="flecha-indicador"></div>
+      <canvas #wheelCanvas></canvas>
+      <div class="ruleta-centro"></div>
+    </div>
+
+    <div class="botones-control">
+      <button (click)="girarRuleta()" [disabled]="estaGirando || participantes.length < 2"
+        class="px-9 py-5 font-medium text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 rounded-lg text-sm text-center me-2 mb-2">
+        GIRAR
+      </button>
+      <button (click)="toggleFullscreen()"
+        class="text-white px-9 py-5 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+        {{ isFullscreen ? 'Cerrar' : 'EXPANDIR' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="participantes-section">
+    <div class="cabecera-participantes">
+      <h3>Participantes ({{ participantes.length }})</h3>
+      <button (click)="reiniciarSorteo()"
+        class="text-red-600 hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-red-600 dark:text-red-600 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+        title="Reiniciar todo">
+        Reiniciar
+      </button>
+    </div>
+
+    <div class="selector-modo">
+      <button (click)="setModoDeIngreso('manual')" [class.activo]="modoDeIngreso === 'manual'">
+        Ingreso manual
+      </button>
+      <button (click)="setModoDeIngreso('masivo')" [class.activo]="modoDeIngreso === 'masivo'">
+        Ingreso múltiple
+      </button>
+    </div>
+
+    <div class="contenedor-formularios">
+      <div *ngIf="modoDeIngreso === 'masivo'" class="generador-masa flex items-center space-x-2">
+        <select [(ngModel)]="cantidadAGenerar">
+          <option [ngValue]="10">10 Participantes</option>
+          <option [ngValue]="50">50 Participantes</option>
+          <option [ngValue]="100">100 Participantes</option>
+          <option [ngValue]="150">150 Participantes</option>
+          <option [ngValue]="200">200 Participantes</option>
+        </select>
+        <button (click)="generarParticipantesEnMasa()" class=" text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Generar</button>
+      </div>
+
+      <form *ngIf="modoDeIngreso === 'manual'" (ngSubmit)="agregarParticipante()">
+
+        <div class="flex w-full">
+          <div class="relative w-full">
+            <input type="search" class="block w-full z-20 
+         p-3
+         text-sm 
+         text-gray-900 
+         bg-gray-50 
+         rounded-lg
+         border 
+         border-gray-300 
+         focus:ring-blue-500 
+         focus:border-blue-500 
+         dark:bg-gray-700 
+         dark:border-gray-600 
+         dark:placeholder-gray-400 
+         dark:text-white 
+         dark:focus:border-blue-500;" [(ngModel)]="nuevoParticipante" name="nuevoParticipante"
+              placeholder="Andres" required />
+            <button type="submit"
+              class="absolute top-0 end-0 p-2.5 h-full text-sm font-medium text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">+</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <ul>
+      <li *ngFor="let p of participantes; let i = index">
+        {{ p }}
+        <button class="boton-eliminar" (click)="eliminarParticipante(i)">×</button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<app-ganador-modal *ngIf="mostrarModalGanador" [nombreGanador]="ganador" (cerrar)="cerrarModal()">
+</app-ganador-modal>
