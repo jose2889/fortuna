@@ -7,13 +7,13 @@ import { HomeComponent } from './pages/home/home.component';
 import { TerminosCondicionesComponent } from './pages/terminos-condiciones/terminos-condiciones.component';
 
 export const routes: Routes = [
-  { path: '', component: SorteoComponent },
+  { path: 'sorteo', component: SorteoComponent },
   { path: 'acerca-de', component: AcercaDeComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'inicio', component: HomeComponent },
   { path: 'terminos', component: TerminosCondicionesComponent },
-  { path: '', redirectTo: '', pathMatch: 'full' }, // Ruta por defecto
-  { path: '**', redirectTo: '' } // Cualquier otra ruta redirige a sorteo
+  { path: '', redirectTo: '/inicio', pathMatch: 'full' }, // Ruta por defecto
+  { path: '**', redirectTo: '/inicio' } // Cualquier otra ruta redirige a sorteo
 ];
 
 @NgModule({
